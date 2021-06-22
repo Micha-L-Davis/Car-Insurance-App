@@ -13,6 +13,4 @@ public class Case
     public string locationNotes;
     public RawImage photo;
     public string photoNotes;
-
-
 }

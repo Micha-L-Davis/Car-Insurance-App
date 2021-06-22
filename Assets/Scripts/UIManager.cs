@@ -18,6 +18,23 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public Case activeCase;
+    private List<Case> cases = new List<Case>();
+
+    public void CreateNewCase()
+    {
+        activeCase = new Case();
+        activeCase.caseID = "CASE NUMBER " + cases.Count;
+        cases.Add(activeCase);
+        //generate a caseID
+        //between 000 and 999
+        //update active caseID
+
+
+    }
+
+
+
     private void Awake()
     {
         _instance = this;
