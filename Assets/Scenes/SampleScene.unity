@@ -757,7 +757,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 476073290}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 304084012}
+        m_TargetAssemblyTypeName: PhotoPanel, Assembly-CSharp
+        m_MethodName: TakePictureButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &476073290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,8 +970,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -458.7616}
-  m_SizeDelta: {x: -260, y: -1167.5234}
+  m_AnchoredPosition: {x: 0, y: -432.9624}
+  m_SizeDelta: {x: -260, y: -1666.3068}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &557941925
 MonoBehaviour:
@@ -1009,6 +1021,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 827796868}
+        m_TargetAssemblyTypeName: LocationPanel, Assembly-CSharp
+        m_MethodName: ProcessInfo
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1245,8 +1269,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -458.7616}
-  m_SizeDelta: {x: -260, y: -1167.5234}
+  m_AnchoredPosition: {x: 0, y: -432.9624}
+  m_SizeDelta: {x: -260, y: -1666.3068}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &638329657
 MonoBehaviour:
@@ -1794,7 +1818,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapImage: {fileID: 1278072213}
   mapNotesInput: {fileID: 1793912487}
-  aPIKey:
+  keyFrag0: T1vSAU6eQ4aAI
+  keyFrag1: tIZuBmwFSr1tmcS
+  keyFrag2: AIzaSyCIdu-
+  latCoord: 0
+  longCoord: 0
+  zoom: 10
+  imgSize: 400
+  uRL: https://maps.googleapis.com/maps/api/staticmap?
 --- !u!1 &896328163
 GameObject:
   m_ObjectHideFlags: 0
@@ -1976,8 +2007,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -458.7616}
-  m_SizeDelta: {x: -260, y: -1167.5234}
+  m_AnchoredPosition: {x: 0, y: -432.9624}
+  m_SizeDelta: {x: -260, y: -1666.3068}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &935022335
 MonoBehaviour:
@@ -6420,7 +6451,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
