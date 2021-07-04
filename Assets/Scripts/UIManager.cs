@@ -1,6 +1,9 @@
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -25,6 +28,7 @@ public class UIManager : MonoBehaviour
     {
         activeCase = new Case();
         activeCase.caseID = "CASE NUMBER " + cases.Count;
+        activeCase.date = DateTime.Today.ToString();
         cases.Add(activeCase);
         //generate a caseID
         //between 000 and 999
@@ -33,6 +37,32 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void SubmitButton()
+    {
+        //create a case to save
+        //populate case data
+        //open a data stream to turn object into a file
+        //begin AWS process
+
+        Case aWSCase = new Case();
+        aWSCase.caseID = activeCase.caseID;
+        aWSCase.clientName = activeCase.clientName;
+        aWSCase.date = activeCase.date;
+        aWSCase.locationNotes = activeCase.locationNotes;
+        aWSCase.photoData = activeCase.photoData;
+        aWSCase.photoNotes = activeCase.photoNotes;
+
+        BinaryFormatter bf = new BinaryFormatter();
+        string filePath = Application.persistentDataPath + "/" + aWSCase.caseID + ".dat";
+        FileStream file = File.Create(filePath);
+        bf.Serialize(file, aWSCase);
+        file.Close();
+        Debug.Log("Application Data Path: " + Application.persistentDataPath);
+
+        //Send to AWS
+        AWSManager.Instance.UploadToS3(filePath);
+
+    }
 
 
     private void Awake()

@@ -9,8 +9,7 @@ public class Case
     public string caseID;
     public string clientName;
     public string date;
-    public string location;
     public string locationNotes;
-    public RawImage photo;
+    public byte[] photoData;
     public string photoNotes;
 }

@@ -7,13 +7,35 @@ public class PhotoPanel : MonoBehaviour, IPanel
 {
     public RawImage photoTaken;
     public InputField photoNotes;
+    public GameObject overviewPanel;
+    string imagePath;
     public void ProcessInfo()
     {
+        //create a 2D texture
+        //apply texture from image path
+        //encode png
+        //store bytes to photodata(active case)
 
+        byte[] imageData = null;
+
+        if (!string.IsNullOrEmpty(imagePath))
+        {
+            Texture2D img = NativeCamera.LoadImageAtPath(imagePath, 512, false);
+            imageData = img.EncodeToPNG();
+        }
+
+
+        UIManager.Instance.activeCase.photoData = imageData;
+        UIManager.Instance.activeCase.photoNotes = photoNotes.text;
     }
     public void TakePictureButton()
     {
         TakePicture(400);
+    }
+
+    public void NextButton()
+    {
+        overviewPanel.SetActive(true);
     }
     private void TakePicture(int maxSize)
     {
@@ -23,7 +45,7 @@ public class PhotoPanel : MonoBehaviour, IPanel
             if (path != null)
             {
                 // Create a Texture2D from the captured image
-                Texture2D texture = NativeCamera.LoadImageAtPath(path, maxSize);
+                Texture2D texture = NativeCamera.LoadImageAtPath(path, maxSize, false);
                 if (texture == null)
                 {
                     Debug.Log("Couldn't load texture from " + path);
@@ -32,13 +54,11 @@ public class PhotoPanel : MonoBehaviour, IPanel
 
                 photoTaken.texture = texture;
                 photoTaken.gameObject.SetActive(true);
-
-                // If a procedural texture is not destroyed manually, 
-                // it will only be freed after a scene change
-                Destroy(texture, 5f);
+                imagePath = path;
             }
         }, maxSize);
 
         Debug.Log("Permission result: " + permission);
     }
+
 }
