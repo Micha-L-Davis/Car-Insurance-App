@@ -44,7 +44,6 @@ public class PhotoPanel : MonoBehaviour, IPanel
             Debug.Log("Image path: " + path);
             if (path != null)
             {
-                // Create a Texture2D from the captured image
                 Texture2D texture = NativeCamera.LoadImageAtPath(path, maxSize, false);
                 if (texture == null)
                 {
