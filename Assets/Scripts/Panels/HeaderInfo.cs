@@ -14,6 +14,6 @@ public class HeaderInfo : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
-        throw new System.NotImplementedException();
+
     }
 }

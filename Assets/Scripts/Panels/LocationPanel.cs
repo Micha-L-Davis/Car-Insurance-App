@@ -8,6 +8,7 @@ public class LocationPanel : MonoBehaviour, IPanel
 {
     public RawImage mapImage;
     public InputField mapNotesInput;
+    public GameObject photoPanel;
 
     public string keyFrag0;
     public string keyFrag1;
@@ -77,6 +78,8 @@ public class LocationPanel : MonoBehaviour, IPanel
         {
             UIManager.Instance.activeCase.locationNotes = mapNotesInput.text;
         }
+        ICommand panelCommand = new PanelCommand(photoPanel);
+        panelCommand.Execute();
     }
 
 }

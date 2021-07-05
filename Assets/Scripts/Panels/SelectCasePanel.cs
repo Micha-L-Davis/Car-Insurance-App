@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SelectCasePanel : MonoBehaviour, IPanel
 {
     public Text informationText;
+    public GameObject overviewPanel;
 
     //onenable
     //populate data with case data
@@ -20,7 +21,8 @@ public class SelectCasePanel : MonoBehaviour, IPanel
 
     public void ProcessInfo()
     {
-
+        ICommand panelCommand = new PanelCommand(overviewPanel);
+        panelCommand.Execute();
     }
 
 }

@@ -13,7 +13,8 @@ public class SearchPanel : MonoBehaviour, IPanel
 
         AWSManager.Instance.GetList(caseNumberInput.text, () => 
         {
-            selectCasePanel.gameObject.SetActive(true);
+            ICommand panelCommand = new PanelCommand(selectCasePanel.gameObject);
+            panelCommand.Execute();
         });
         
         //compare those to casenumber input by user

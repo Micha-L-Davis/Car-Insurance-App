@@ -16,7 +16,8 @@ public class NamePanel : MonoBehaviour, IPanel
         else
         {
             UIManager.Instance.activeCase.clientName = "" + firstName.text + " " + lastName.text + "";
-            locationPanel.SetActive(true);
+            ICommand panelCommand = new PanelCommand(locationPanel);
+            panelCommand.Execute();
         }
     }
 }

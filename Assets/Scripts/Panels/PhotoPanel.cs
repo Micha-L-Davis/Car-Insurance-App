@@ -27,6 +27,9 @@ public class PhotoPanel : MonoBehaviour, IPanel
 
         UIManager.Instance.activeCase.photoData = imageData;
         UIManager.Instance.activeCase.photoNotes = photoNotes.text;
+
+        ICommand panelCommand = new PanelCommand(overviewPanel);
+        panelCommand.Execute();
     }
     public void TakePictureButton()
     {
