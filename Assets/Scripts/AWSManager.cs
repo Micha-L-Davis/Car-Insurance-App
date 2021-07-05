@@ -77,7 +77,7 @@ public class AWSManager : MonoBehaviour
         });
     }
 
-    public void GetList(string caseNumber)
+    public void GetList(string caseNumber, Action onComplete = null)
     {
         string target = "case#" + caseNumber;
         ListObjectsRequest request = new ListObjectsRequest()
@@ -129,6 +129,8 @@ public class AWSManager : MonoBehaviour
                                 Case downloadedCase = (Case)bf.Deserialize(memory);
                                 Debug.Log("Downloaded Case ID: " + downloadedCase.caseID);
                                 UIManager.Instance.activeCase = downloadedCase;
+                                if (onComplete != null)
+                                    onComplete();
                             }
                         }
                     });

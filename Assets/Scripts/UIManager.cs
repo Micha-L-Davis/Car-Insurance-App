@@ -65,6 +65,25 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public GameObject[] panels;
+    //public GameObject topPanel;
+    //public GameObject previousPanel;
+    
+        //good spot for command pattern undo/redo
+
+    public void HomeButton()
+    {
+        foreach (var item in panels)
+        {
+            if (item.activeInHierarchy == true)
+                item.SetActive(false);
+        }
+    }
+
+    public void BackButton()
+    {
+
+    }
 
     private void Awake()
     {
