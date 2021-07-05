@@ -10,6 +10,9 @@ using Amazon.S3.Util;
 using System.Collections.Generic;
 using Amazon.CognitoIdentity;
 using Amazon;
+using UnityEngine.SceneManagement;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class AWSManager : MonoBehaviour
 {
@@ -35,7 +38,7 @@ public class AWSManager : MonoBehaviour
         }
     }
 
-    public string S3Region = RegionEndpoint.USEast2.SystemName;
+    private string S3Region = RegionEndpoint.USWest2.SystemName;
     private RegionEndpoint _S3Region
     {
         get { return RegionEndpoint.GetBySystemName(S3Region); }
@@ -46,42 +49,97 @@ public class AWSManager : MonoBehaviour
 
         UnityInitializer.AttachToGameObject(this.gameObject);
         AWSConfigs.HttpClient = AWSConfigs.HttpClientOption.UnityWebRequest;
-
-        S3Client.ListBucketsAsync(new ListBucketsRequest(), (responseObject) =>
-        {
-            if (responseObject.Exception == null)
-            {
-                responseObject.Response.Buckets.ForEach((s3b) =>
-                {
-                    Debug.Log("Bucket Name: " + s3b.BucketName);
-                });
-            }
-            else
-            {
-                Debug.Log("AWS Error:" + responseObject.Exception);
-            }
-        });
     } 
 
-    public void UploadToS3(string fileName)
+    public void UploadToS3(string path, string caseID)
     {
-        FileStream stream = new FileStream(fileName, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+        FileStream stream = new FileStream(path, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
 
         PostObjectRequest request = new PostObjectRequest()
         {
             Bucket = "casefiles11212",
-            Key = fileName,
+            Key = "case#" + caseID,
             InputStream = stream,
             CannedACL = S3CannedACL.Private,
-            Region = RegionEndpoint.USEast2
+            Region = _S3Region
         };
 
         S3Client.PostObjectAsync(request, (responseObj) => 
         {
             if (responseObj.Exception == null)
+            {
                 Debug.Log("Successfully posted to bucket");
+                SceneManager.LoadScene(0);
+            }
+
             else
                 Debug.Log("Exception occurred during upload: " + responseObj.Exception);
+        });
+    }
+
+    public void GetList(string caseNumber)
+    {
+        string target = "case#" + caseNumber;
+        ListObjectsRequest request = new ListObjectsRequest()
+        {
+            BucketName = "casefiles11212"
+        };
+
+        S3Client.ListObjectsAsync(request, (responseObject) =>
+        {
+            if (responseObject.Exception == null)
+            {
+                bool caseFound = responseObject.Response.S3Objects.Any(obj => obj.Key == target);
+
+                if (caseFound == true)
+                {
+                    Debug.Log("Case Found!");
+                    S3Client.GetObjectAsync("casefiles11212", target, (responseObj) =>
+                    {
+                        //read data and apply to case
+
+                        //check if responsestream is null
+                        if (responseObj.Response != null)
+                        {
+                            //byte array to store data from file
+                            byte[] data = null;
+
+                            //use stream reader to read response data
+                            using (StreamReader reader = new StreamReader(responseObj.Response.ResponseStream))
+                            {
+                                //access a memory stream
+                                using (MemoryStream memory = new MemoryStream())
+                                {
+                                    //populate data byte array with memory stream data
+                                    byte[] buffer = new byte[512];
+                                    var bytesRead = default(int);
+
+                                    while ((bytesRead = reader.BaseStream.Read(buffer, 0, buffer.Length)) > 0)
+                                    {
+                                        memory.Write(buffer, 0, bytesRead);
+                                    }
+                                    data = memory.ToArray();
+                                }
+                            }
+
+                            //convert bytes to a case object
+                            using (MemoryStream memory = new MemoryStream(data))
+                            {
+                                BinaryFormatter bf = new BinaryFormatter();
+                                Case downloadedCase = (Case)bf.Deserialize(memory);
+                                Debug.Log("Downloaded Case ID: " + downloadedCase.caseID);
+                                UIManager.Instance.activeCase = downloadedCase;
+                            }
+                        }
+                    });
+                }
+                else
+                {
+                    Debug.Log("Case not found!");
+                }
+            }
+            else
+                Debug.Log("Error getting list of items from S3: " + responseObject.Exception);
         });
     }
 }

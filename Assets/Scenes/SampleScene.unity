@@ -522,7 +522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &304084010
 RectTransform:
   m_ObjectHideFlags: 0
@@ -932,7 +932,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3bc3b8121c9c5644b303c49cf465cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  S3Region: us-east-1
 --- !u!4 &544358775
 Transform:
   m_ObjectHideFlags: 0
@@ -4230,7 +4229,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7378844641903584809}
   m_HandleRect: {fileID: 4592944660513927028}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000001
   m_Size: 0.59223425
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4712,18 +4711,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6862224593590548013}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 6862224595109781523}
         m_TargetAssemblyTypeName: SearchPanel, Assembly-CSharp
         m_MethodName: ProcessInfo
@@ -7719,7 +7706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &6862224595356333177
 CanvasRenderer:
   m_ObjectHideFlags: 0

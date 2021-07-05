@@ -22,14 +22,15 @@ public class UIManager : MonoBehaviour
     }
 
     public Case activeCase;
-    private List<Case> cases = new List<Case>();
+    //private List<Case> cases = new List<Case>();
 
     public void CreateNewCase()
     {
         activeCase = new Case();
-        activeCase.caseID = "CASE NUMBER " + cases.Count;
+        int id = UnityEngine.Random.Range(0, 1000);
+        activeCase.caseID = "" + id;
         activeCase.date = DateTime.Today.ToString();
-        cases.Add(activeCase);
+        //cases.Add(activeCase);
         //generate a caseID
         //between 000 and 999
         //update active caseID
@@ -60,7 +61,7 @@ public class UIManager : MonoBehaviour
         Debug.Log("Application Data Path: " + Application.persistentDataPath);
 
         //Send to AWS
-        AWSManager.Instance.UploadToS3(filePath);
+        AWSManager.Instance.UploadToS3(filePath, aWSCase.caseID);
 
     }
 
