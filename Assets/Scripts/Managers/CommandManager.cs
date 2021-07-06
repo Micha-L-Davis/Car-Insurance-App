@@ -18,22 +18,14 @@ public class CommandManager : MonoBehaviour
     private List<ICommand> _commandBuffer = new List<ICommand>();
     private int _commandIndex;
     
-    //create method to add commands to the command buffer
     public void AddCommand(ICommand command)
     {
-        //add command to list
         _commandBuffer.Add(command);
-        //set _commandIndex to list length
         _commandIndex = _commandBuffer.Count-1;
     }
 
-    //create a method to step +1 or -1 through list
     public void StepThroughCommands(bool back)
     {
-        //if back
-        //  commandBuffer[listIndex].undo()
-        //  listIndex--
-
         if (back)
         {
             _commandBuffer[_commandIndex].Undo();
@@ -43,12 +35,6 @@ public class CommandManager : MonoBehaviour
                 _commandIndex = 0;
             }
         }
-
-        //else
-        //  commandBuffer[listIndex].redo()
-        //  listIndex++
-        //  if listIndex > list length
-        //  listIndex = list length
 
         else
         {
